@@ -37,5 +37,11 @@ The "/error_report" is hard-coded to avoid another possible cause of
 error when the page is compiled. That's also why to change it, I advise
 that you re-compile the script.
 
+Status
+======
+
+It still lacks a bit of testing. I'm going to deploy that on
+[pandastream](http://www.pandastream.com) soon and get more feedback from that.
+
 Cheers,
   zimbatm
