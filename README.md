@@ -28,7 +28,7 @@ Now when a JavaScript error happens, the error is forwarded to
 
 Behind the scene, when getting a hit on "/error_report", you might want
 to forward the error even further, into an error aggregation service
-like [airbreak][http://airbreakapp.com].
+like [airbreak](http://airbreakapp.com).
 
 Some rationales
 ===============
