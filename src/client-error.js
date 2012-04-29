@@ -1,14 +1,15 @@
 /**
- * Simple error reporter.
+ * @license Copyright 2012 Jonas Pfenniger under the MIT license
+ */
+(function(global) {
+/* Simple error reporter.
  *
  * Put this as the first loaded javascript on your website to get notified
  * when error happen in your javascript.
  *
- * Also accept a POST route on /report_error.
- *
- * @param {!Object} global
+ * Also implement POST /report_error to forward the errors whenever you want to.
  */
-(function(global) {
+
   /** @const */ var url = '/report_error';
 
   /**
