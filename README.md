@@ -26,9 +26,27 @@ errors. Eg:
 Now when a JavaScript error happens, the error is forwarded to
 "/error_report" using XHR.
 
+Server side implementation
+===========================
+
 Behind the scene, when getting a hit on "/error_report", you might want
 to forward the error even further, into an error aggregation service
 like [airbreak](http://airbreakapp.com).
+
+```ruby
+# app/controllers/failing_controller.rb
+class FailingController < ApplicationController
+  def index
+    raise params[:message] || "this page should fail!"
+  end
+end
+
+# in config/routes.rb:
+post '/report_error' => 'failing#index'
+```
+
+When the controller raises an exception, airbreak catches it an forwards
+it to their server, where all exceptions are nicely cathegorized.
 
 Some rationales
 ===============
