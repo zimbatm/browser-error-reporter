@@ -13,8 +13,9 @@
   /** @const */ var url = '/report_error';
   /** @const */ var XMLHttpRequest = global.XMLHttpRequest;
   /** @const */ var ActiveXObject = global.ActiveXObject;
-  /** @const */ var encodeURIComponent = global.encodeURIComponent;
-  /** @const */ var stringify = (global.JSON && global.JSON.stringify || objectToString);
+  /** @const */ var encodeURIComponent = global['encodeURIComponent'];
+  /** @const */ var JSON = global.JSON;
+  /** @const */ var stringify = (JSON && JSON.stringify || objectToString);
 
   /**
    * Cross-platorm XHR object.
