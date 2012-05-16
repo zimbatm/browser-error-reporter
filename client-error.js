@@ -13,7 +13,8 @@
   /** @const */ var url = '/report_error';
   /** @const */ var XMLHttpRequest = global.XMLHttpRequest;
   /** @const */ var ActiveXObject = global.ActiveXObject;
-
+  /** @const */ var encodeURIComponent = global.encodeURIComponent;
+  /** @const */ var stringify = (global.JSON && global.JSON.stringify || objectToString);
 
   /**
    * Cross-platorm XHR object.
@@ -44,17 +45,21 @@
    * @param {!Object} data
    * @return {string}
    */
-  function _encode(data) {
-    var result = "", e = global.encodeURIComponent;
+  function objectToQueryString(data) {
+    var result = "";
 
     for (var k in data) {
-      if (data.hasOwnProperty(k)) {
+      if (Object.prototype.hasOwnProperty.call(data, k)) {
         if (result.length > 0) { result += '&'; }
-        result += e(k) + '=' + e(data[k]);
+        result += encodeURIComponent(k) + '=' + encodeURIComponent(stringify(data[k]));
       }
     }
 
     return result;
+  }
+
+  function objectToString(object) {
+    return object.toString();
   }
 
   // Send the error to our backend
@@ -66,7 +71,7 @@
     // Do nothing if we can't generate a XHR object
     if (!xhr) return;
 
-    payload = _encode(data);
+    payload = objectToQueryString(data);
 
     xhr.open(method, url);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
