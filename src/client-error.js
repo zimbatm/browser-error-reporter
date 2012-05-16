@@ -72,7 +72,7 @@
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     xhr.send(payload);
-    return true;
+    return false;
   }
 
   var oldonerror = global.onerror;
