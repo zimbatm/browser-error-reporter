@@ -11,6 +11,9 @@
  */
 
   /** @const */ var url = '/report_error';
+  /** @const */ var XMLHttpRequest = global.XMLHttpRequest;
+  /** @const */ var ActiveXObject = global.ActiveXObject;
+
 
   /**
    * Cross-platorm XHR object.
@@ -22,9 +25,9 @@
   function newXhr() {
     var xhr;
     try {
-      if (global.XMLHttpRequest) {
+      if (XMLHttpRequest) {
         xhr = new XMLHttpRequest();
-      } else if (global.ActiveXObject) {
+      } else if (ActiveXObject) {
         try {
           xhr = new ActiveXObject("Msxml2.XMLHTTP");
         } catch (e) {
@@ -42,7 +45,7 @@
    * @return {string}
    */
   function _encode(data) {
-    var result = "", e = encodeURIComponent;
+    var result = "", e = global.encodeURIComponent;
 
     for (var k in data) {
       if (data.hasOwnProperty(k)) {
