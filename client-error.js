@@ -14,8 +14,6 @@
   /** @const */ var XMLHttpRequest = global.XMLHttpRequest;
   /** @const */ var ActiveXObject = global.ActiveXObject;
   /** @const */ var encodeURIComponent = global['encodeURIComponent'];
-  /** @const */ var JSON = global.JSON;
-  /** @const */ var stringify = (JSON && JSON.stringify || objectToString);
 
   /**
    * Cross-platorm XHR object.
@@ -52,15 +50,11 @@
     for (var k in data) {
       if (Object.prototype.hasOwnProperty.call(data, k)) {
         if (result.length > 0) { result += '&'; }
-        result += encodeURIComponent(k) + '=' + encodeURIComponent(stringify(data[k]));
+        result += encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
       }
     }
 
     return result;
-  }
-
-  function objectToString(object) {
-    return object.toString();
   }
 
   // Send the error to our backend
@@ -78,17 +72,22 @@
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     xhr.send(payload);
-    return false;
   }
 
   var oldonerror = global.onerror;
   // Send all messages to the site
   // https://developer.mozilla.org/en/DOM/window.onerror
   global.onerror = function(message, file, line) {
-    var ret = reportError({'message': message, 'file': file, 'line': line});
-    if (oldonerror) {
-      return oldonerror.apply(this, arguments) || ret;
+    if (file && line) {
+      reportError({'message': message, 'file': file, 'line': line});
+    } else {
+      // jQuery sends object errors
+      reportError(message);
     }
-    return ret;
+    if (oldonerror) {
+      return oldonerror.apply(this, arguments);
+    }
+    // In this case, false == keep the error bubbling
+    return false;
   };
 })(this);
