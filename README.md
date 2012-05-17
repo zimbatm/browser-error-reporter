@@ -18,7 +18,7 @@ Install that thing
 <html>
   <head>
     <meta charset=utf-8>
-    <script src="path/to/client-error.js"></script>
+    <script src="path/to/browser-error-reporter.js"></script>
     ...
 ```
 
