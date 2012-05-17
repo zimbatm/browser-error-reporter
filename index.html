@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=640" />
+
+    <link rel="stylesheet" href="stylesheets/core.css" media="screen"/>
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)"/>
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+
+    <script type="text/javascript" src="javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#main_content').headsmart()
+      })
+    </script>
+    <title>Browser error reporter by zimbatm</title>
+  </head>
+
+  <body>
+    <a id="forkme_banner" href="https://github.com/zimbatm/browser-error-reporter">View on GitHub</a>
+    <div class="shell">
+
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>Browser error reporter</h1>
+            <h2>Be notified of all those nasty client errors</h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
+
+      <section id="downloads">
+        <span class="inner">
+          <a href="https://github.com/zimbatm/browser-error-reporter/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/zimbatm/browser-error-reporter/tarball/master" class="tgz"><em>download</em> .TGZ</a>
+        </span>
+      </section>
+
+
+      <span class="banner-fix"></span>
+
+
+      <section id="main_content">
+        <h1>Browser error reporter</h1>
+
+<p>Are you like me, wondering how many underported client errors are just
+hidden from us ? Well.. you can stop being in the dark today !</p>
+
+<p>With just a couple of steps, you will start getting all these nasty
+errors that you never saw because who tests his site in IE anymore ?</p>
+
+<h1>Install that thing</h1>
+
+<p>1: Insert the script as early as possible in your page to not miss any
+   errors. Eg:</p>
+
+<div class="highlight">
+<pre><span class="cp">&lt;!doctype html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">utf-8</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"path/to/browser-error-reporter.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    ...
+</pre>
+</div>
+
+
+<p>2: Change your webapp to accept POST requests on the "/error_report"
+   end-point. For example in Rails, I use this kind of controller to
+   forward the errors to <a href="http://airbrakeapp.com/">Airbrake</a>.</p>
+
+<div class="highlight">
+<pre><span class="c1"># app/controllers/failing_controller.rb</span>
+<span class="k">class</span> <span class="nc">FailingController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+  <span class="k">def</span> <span class="nf">index</span>
+    <span class="c1"># We should get message, file and line parameters from the</span>
+    <span class="c1"># JavaScript client</span>
+    <span class="k">raise</span> <span class="n">params</span><span class="o">[</span><span class="ss">:message</span><span class="o">]</span> <span class="o">||</span> <span class="s2">"this page should fail!"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># in config/routes.rb:</span>
+<span class="n">post</span> <span class="s1">'/report_error'</span> <span class="o">=&gt;</span> <span class="s1">'failing#index'</span>
+</pre>
+</div>
+
+
+<p>When the controller raises an exception, airbreak catches it an forwards
+it to their server, where all exceptions are nicely categorized.</p>
+
+<p>(Examples for other kind of backends are welcome)</p>
+
+<p>3: Profit !</p>
+
+<p>If you have any issues, just add it to the <a href="https://github.com/zimbatm/browser-error-reporter/issues">bug tracker</a> and I'll take a
+look.</p>
+
+<h1>Status</h1>
+
+<p>This script is actually running on <a href="http://www.pandastream.com">PandaStream</a> and has helped me find a couple of unknown JavaScript issues. I'm still not 100% confident in it but it's good enough that it doesn't hurt.</p>
+
+<h1>Design</h1>
+
+<p>The JavaScript has no external dependencies and is kept as small as
+possible. This to avoid the error reporter having errors himself.</p>
+
+<p>The "/error_report" is hard-coded to avoid another possible cause of
+error. We're trying to collect errors so it's quite crucial to not
+introduce our own issues. If you don't like the path of the end-point,
+you'll need to change it by hand. Search for "/report_error" in the script
+and replace it to your liking !</p>
+
+<p>Licence: MIT</p>
+
+<p>Cheers,
+  zimbatm</p>
+      </section>
+
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <p>this project by <a href="https://github.com/zimbatm">zimbatm</a> can be found on <a href="https://github.com/zimbatm/browser-error-reporter">GitHub</a></p>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="http://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
+      </footer>
+
+    </div>
+
+    
+  </body>
+</html>
