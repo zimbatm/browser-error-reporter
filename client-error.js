@@ -85,7 +85,7 @@
   // Send all messages to the site
   // https://developer.mozilla.org/en/DOM/window.onerror
   global.onerror = function(message, file, line) {
-    var ret = reportError({message: message, file: file, line: line});
+    var ret = reportError({'message': message, 'file': file, 'line': line});
     if (oldonerror) {
       return oldonerror.apply(this, arguments) || ret;
     }
