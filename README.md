@@ -46,20 +46,23 @@ post '/report_error' => 'failing#index'
 ```
 
 When the controller raises an exception, airbreak catches it an forwards
-it to their server, where all exceptions are nicely cathegorized.
+it to their server, where all exceptions are nicely categorized.
 
-Some rationales
-===============
+Changing the reporting end-point
+================================
 
 The "/error_report" is hard-coded to avoid another possible cause of
-error when the page is compiled. That's also why to change it, I advise
-that you re-compile the script.
+error. We're trying to collect errors so it's quite crucial to not
+introduce our own issues.
+
+If you don't like the path of the end-point, you'll need to change it by
+hand. Search for "/report_error" in the script and replace it to your
+liking !
 
 Status
 ======
 
-It still lacks a bit of testing. I'm going to deploy that on
-[pandastream](http://www.pandastream.com) soon and get more feedback from that.
+This script is actually running on [pandastream](http://www.pandastream.com) and has helped me find a couple of unknown JavaScript issues. I'm still not 100% confident in it but it's good enough that it doesn't hurt.
 
 Cheers,
   zimbatm
