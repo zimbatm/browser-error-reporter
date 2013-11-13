@@ -1,3 +1,5 @@
+# Status: retired - use http://getsentry.com
+
 Browser error reporter
 ======================
 
